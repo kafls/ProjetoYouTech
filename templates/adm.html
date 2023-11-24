@@ -1,0 +1,41 @@
+{% extends 'modelo.html' %} <!-- herda o conteúdo da página modelo.html-->
+{% block conteudo %}
+
+{% if not vagas %}
+    <!-- Displayed when there are no job positions -->
+    <h2 class="text-center text-danger my-5">Não há vagas!</h2>
+{% else %}
+    <div class="container mt-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+            {% for vaga in vagas %}
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="../static/img/vagas/{{ vaga['img_vaga'] }}" class="card-img-top" alt="Job Image">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">{{ vaga['cargo_vaga'] }}</h5>
+                            <p class="card-text text-dark">{{ vaga['tipo_vaga'] }}</p>
+                            <p class="card-text text-dark mb-2">{{ vaga['requisitos_vaga'] }}</p>
+                            <p class="card-text text-dark mb-2">{{ vaga['salario_vaga'] }}</p>
+                            <p class="card-text text-dark mb-2">{{ vaga['local_vaga'] }}</p>
+                            <p class="card-text text-dark mb-2">{{ vaga['email_vaga'] }}</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="/editvagas/{{ vaga['id_vaga'] }}" class="btn btn-success ms-2"><i class="bi bi-pencil-square"></i></a>
+                            <a href="/excluir/{{ vaga['id_vaga'] }}" onclick="return confirm('Você tem certeza de que deseja excluir esse produto?')" class="btn btn-danger ms-2"><i class="bi bi-trash3"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+
+
+        </div>
+        <!-- botões com direcionamento para a página de cadastro de produtos e de logout-->
+        <div class="container text-center mt-4">
+            <button type="button" onclick="window.location.href='/cadvagas'" class="btn btn-lg mx-5" style="background-color: #2a494d; color: white;">Cadastrar</button>
+            <button type="button" onclick="window.location.href='logout'" class="btn btn-lg btn-danger mx-5">Sair</button>
+        </div>
+    {% endblock %}
